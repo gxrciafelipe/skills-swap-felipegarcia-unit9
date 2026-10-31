@@ -252,3 +252,8 @@ footer {
 
 /* ---------- Match results ---------- */
 .match-results { margin-top: 1.5rem; }
+
+/* ---------- Loading and status ---------- */
+.status-message { font-style: italic; color: #555; }
+
+.tool-button:disabled { opacity: 0.6; cursor: not-allowed; }
