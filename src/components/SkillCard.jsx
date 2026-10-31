@@ -13,11 +13,11 @@ function SkillCard({ skill }) {
       <h3>{skill.title}</h3>
       <p>{skill.description}</p>
       <p className="price">{formatPrice(skill.price)}</p>
-      <p className="provider">Provider: {skill.provider}</p>
+      {skill.provider && <p className="provider">Provider: {skill.provider}</p>}
 
       {expanded && (
         <div className="card-details">
-          <p>{skill.details}</p>
+          <p>{skill.details || skill.description}</p>
         </div>
       )}
 

@@ -1,13 +1,15 @@
 import { useState } from "react";
 import SkillCard from "./SkillCard.jsx";
-import { skills, CATEGORIES } from "../data/skills.js";
 import { matchSkillsToUser } from "../../skillswap-functions.js";
 
-function SkillMatcher() {
-  const [category, setCategory] = useState(CATEGORIES[0]);
+function SkillMatcher({ skills }) {
+  const categories = [...new Set(skills.map((skill) => skill.category))];
+  const [category, setCategory] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [matches, setMatches] = useState(null);
   const [error, setError] = useState("");
+
+  const selectedCategory = category || categories[0] || "";
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +22,7 @@ function SkillMatcher() {
     }
 
     setError("");
-    setMatches(matchSkillsToUser({ category, maxPrice: budget }, skills));
+    setMatches(matchSkillsToUser({ category: selectedCategory, maxPrice: budget }, skills));
   };
 
   return (
@@ -29,8 +31,8 @@ function SkillMatcher() {
       <form className="tool-form" onSubmit={handleSubmit}>
         <label>
           Category
-          <select value={category} onChange={(event) => setCategory(event.target.value)}>
-            {CATEGORIES.map((option) => (
+          <select value={selectedCategory} onChange={(event) => setCategory(event.target.value)}>
+            {categories.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
